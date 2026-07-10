@@ -1,0 +1,217 @@
+product_id,name,category,unit_cost,unit_price
+P00001,XL Laptop Stand,Electronics,62.59,123.42
+P00002,V2 Wireless Earbuds,Electronics,7.55,13.1
+P00003,XL Webcam,Electronics,24.6,53.71
+P00004,Classic Webcam,Electronics,44.57,68.96
+P00005,V2 Laptop Stand,Electronics,100.38,148.7
+P00006,XL Wireless Earbuds,Electronics,9.76,21.16
+P00007,Pro Bluetooth Speaker,Electronics,79.1,158.99
+P00008,V2 Laptop Stand,Electronics,51.5,73.03
+P00009,Standard Power Bank,Electronics,59.0,89.63
+P00010,Classic Bluetooth Speaker,Electronics,96.9,155.17
+P00011,Mini Webcam,Electronics,86.68,176.69
+P00012,XL Laptop Stand,Electronics,107.88,233.71
+P00013,Mini USB-C Hub,Electronics,29.31,49.0
+P00014,Classic Webcam,Electronics,50.07,74.71
+P00015,V2 Webcam,Electronics,116.11,250.27
+P00016,V2 Webcam,Electronics,72.88,120.57
+P00017,Standard Power Bank,Electronics,59.88,101.95
+P00018,V2 Laptop Stand,Electronics,41.72,68.8
+P00019,V2 Power Bank,Electronics,114.45,227.33
+P00020,Pro Bluetooth Speaker,Electronics,64.01,103.46
+P00021,Classic Wireless Earbuds,Electronics,50.88,85.87
+P00022,V2 Bluetooth Speaker,Electronics,6.95,12.84
+P00023,Mini Laptop Stand,Electronics,109.2,192.64
+P00024,Standard Power Bank,Electronics,71.63,164.41
+P00025,Mini Bluetooth Speaker,Electronics,88.28,141.26
+P00026,V2 Webcam,Electronics,95.05,210.62
+P00027,Mini Power Bank,Electronics,62.85,135.81
+P00028,Classic Cutting Board,Home & Kitchen,25.01,37.21
+P00029,V2 Cast Iron Skillet,Home & Kitchen,34.0,72.34
+P00030,V2 Cast Iron Skillet,Home & Kitchen,108.35,215.51
+P00031,Mini Cast Iron Skillet,Home & Kitchen,29.91,65.33
+P00032,Mini Air Fryer,Home & Kitchen,47.12,90.8
+P00033,Standard Air Fryer,Home & Kitchen,58.58,127.69
+P00034,Classic Throw Blanket,Home & Kitchen,113.54,166.23
+P00035,Classic Cast Iron Skillet,Home & Kitchen,17.9,36.03
+P00036,Mini Throw Blanket,Home & Kitchen,51.92,113.38
+P00037,Pro Cast Iron Skillet,Home & Kitchen,119.11,203.49
+P00038,XL Throw Blanket,Home & Kitchen,20.61,44.85
+P00039,Standard Cast Iron Skillet,Home & Kitchen,60.56,119.18
+P00040,Mini Cast Iron Skillet,Home & Kitchen,77.6,108.97
+P00041,Pro Knife Block,Home & Kitchen,92.3,143.23
+P00042,XL Cast Iron Skillet,Home & Kitchen,95.08,199.84
+P00043,Classic Cast Iron Skillet,Home & Kitchen,54.31,97.02
+P00044,XL Air Fryer,Home & Kitchen,48.46,69.49
+P00045,V2 Cast Iron Skillet,Home & Kitchen,47.28,66.79
+P00046,Classic Knife Block,Home & Kitchen,26.11,52.46
+P00047,V2 Cutting Board,Home & Kitchen,32.86,66.51
+P00048,Mini Knife Block,Home & Kitchen,18.96,33.09
+P00049,Mini Throw Blanket,Home & Kitchen,23.37,50.05
+P00050,Mini Knife Block,Home & Kitchen,56.89,106.29
+P00051,Mini Throw Blanket,Home & Kitchen,54.31,109.6
+P00052,Mini Cast Iron Skillet,Home & Kitchen,119.55,220.11
+P00053,Pro Cast Iron Skillet,Home & Kitchen,113.98,253.76
+P00054,Standard Air Fryer,Home & Kitchen,30.5,62.66
+P00055,Pro Fleece Hoodie,Apparel,89.15,172.12
+P00056,Standard Fleece Hoodie,Apparel,46.52,92.36
+P00057,XL Cotton T-Shirt,Apparel,105.68,172.28
+P00058,Classic Denim Jacket,Apparel,9.64,22.13
+P00059,Standard Rain Jacket,Apparel,79.81,113.15
+P00060,Standard Rain Jacket,Apparel,52.35,91.21
+P00061,Mini Denim Jacket,Apparel,59.03,90.78
+P00062,V2 Rain Jacket,Apparel,77.12,128.87
+P00063,Standard Rain Jacket,Apparel,80.85,132.83
+P00064,V2 Denim Jacket,Apparel,19.91,42.76
+P00065,Classic Cotton T-Shirt,Apparel,87.38,131.59
+P00066,Standard Cotton T-Shirt,Apparel,61.74,120.28
+P00067,Classic Running Shorts,Apparel,116.88,201.28
+P00068,Mini Wool Socks,Apparel,22.6,42.79
+P00069,V2 Fleece Hoodie,Apparel,112.24,190.53
+P00070,Standard Cotton T-Shirt,Apparel,81.91,181.53
+P00071,V2 Denim Jacket,Apparel,61.32,138.25
+P00072,Standard Denim Jacket,Apparel,87.93,131.12
+P00073,V2 Running Shorts,Apparel,30.81,70.55
+P00074,Mini Running Shorts,Apparel,57.86,86.2
+P00075,Standard Fleece Hoodie,Apparel,102.86,177.35
+P00076,Mini Rain Jacket,Apparel,53.42,80.36
+P00077,Standard Cotton T-Shirt,Apparel,102.83,205.35
+P00078,Mini Fleece Hoodie,Apparel,45.47,81.57
+P00079,Mini Denim Jacket,Apparel,105.9,157.12
+P00080,Pro Running Shorts,Apparel,17.2,30.28
+P00081,Mini Wool Socks,Apparel,100.94,203.99
+P00082,XL Camping Tent,Sports & Outdoors,79.27,167.83
+P00083,Pro Yoga Mat,Sports & Outdoors,84.76,123.14
+P00084,Standard Hiking Backpack,Sports & Outdoors,52.26,100.95
+P00085,V2 Resistance Bands,Sports & Outdoors,54.83,106.93
+P00086,Classic Water Bottle,Sports & Outdoors,7.34,14.8
+P00087,Pro Bike Helmet,Sports & Outdoors,60.04,110.43
+P00088,XL Camping Tent,Sports & Outdoors,9.33,15.26
+P00089,Standard Water Bottle,Sports & Outdoors,85.73,172.33
+P00090,Classic Bike Helmet,Sports & Outdoors,87.96,140.88
+P00091,Mini Bike Helmet,Sports & Outdoors,64.22,129.69
+P00092,Standard Resistance Bands,Sports & Outdoors,54.21,111.35
+P00093,Mini Camping Tent,Sports & Outdoors,80.99,160.14
+P00094,Classic Hiking Backpack,Sports & Outdoors,107.48,209.76
+P00095,V2 Yoga Mat,Sports & Outdoors,112.39,208.48
+P00096,XL Camping Tent,Sports & Outdoors,104.85,153.85
+P00097,Mini Camping Tent,Sports & Outdoors,31.94,72.6
+P00098,Classic Yoga Mat,Sports & Outdoors,29.83,59.03
+P00099,Pro Camping Tent,Sports & Outdoors,13.14,23.65
+P00100,XL Resistance Bands,Sports & Outdoors,14.21,26.27
+P00101,Standard Water Bottle,Sports & Outdoors,117.76,243.85
+P00102,Standard Yoga Mat,Sports & Outdoors,50.8,72.76
+P00103,Standard Resistance Bands,Sports & Outdoors,99.81,210.86
+P00104,V2 Resistance Bands,Sports & Outdoors,39.33,73.06
+P00105,V2 Hiking Backpack,Sports & Outdoors,81.89,184.69
+P00106,Standard Water Bottle,Sports & Outdoors,98.72,213.22
+P00107,Classic Water Bottle,Sports & Outdoors,93.02,180.45
+P00108,V2 Bike Helmet,Sports & Outdoors,46.14,83.39
+P00109,V2 Facial Cleanser,Beauty,29.72,50.74
+P00110,Mini Makeup Brush Set,Beauty,67.53,117.27
+P00111,Standard Facial Cleanser,Beauty,108.04,199.14
+P00112,V2 Makeup Brush Set,Beauty,87.7,131.22
+P00113,Pro Lip Balm Set,Beauty,25.76,57.63
+P00114,Pro Body Lotion,Beauty,57.02,119.93
+P00115,Mini Makeup Brush Set,Beauty,16.5,29.25
+P00116,V2 Makeup Brush Set,Beauty,72.3,151.46
+P00117,XL Body Lotion,Beauty,80.38,181.7
+P00118,XL Vitamin C Serum,Beauty,4.5,9.28
+P00119,XL Lip Balm Set,Beauty,101.3,185.85
+P00120,Pro Lip Balm Set,Beauty,84.25,131.12
+P00121,Standard Vitamin C Serum,Beauty,48.94,94.97
+P00122,Classic Hair Dryer,Beauty,106.24,188.77
+P00123,V2 Lip Balm Set,Beauty,92.44,152.18
+P00124,Mini Hair Dryer,Beauty,56.53,85.93
+P00125,Classic Body Lotion,Beauty,85.2,176.67
+P00126,V2 Hair Dryer,Beauty,67.55,113.65
+P00127,Classic Makeup Brush Set,Beauty,77.38,122.32
+P00128,V2 Lip Balm Set,Beauty,37.71,64.51
+P00129,Pro Makeup Brush Set,Beauty,117.83,233.9
+P00130,Classic Vitamin C Serum,Beauty,66.93,132.07
+P00131,Standard Makeup Brush Set,Beauty,92.25,175.83
+P00132,Classic Lip Balm Set,Beauty,113.35,231.13
+P00133,V2 Makeup Brush Set,Beauty,107.69,202.51
+P00134,Standard Body Lotion,Beauty,64.64,91.97
+P00135,Standard Vitamin C Serum,Beauty,81.75,129.16
+P00136,Mini Puzzle 1000pc,Toys & Games,83.27,127.55
+P00137,V2 Board Game,Toys & Games,94.99,150.43
+P00138,Standard Card Game Deck,Toys & Games,45.61,82.43
+P00139,V2 Card Game Deck,Toys & Games,89.78,195.57
+P00140,V2 Plush Animal,Toys & Games,69.11,111.53
+P00141,Mini Plush Animal,Toys & Games,84.38,121.7
+P00142,XL RC Car,Toys & Games,52.32,110.36
+P00143,Mini Plush Animal,Toys & Games,116.04,168.07
+P00144,Mini Plush Animal,Toys & Games,27.56,60.13
+P00145,Pro RC Car,Toys & Games,109.73,223.21
+P00146,Mini Plush Animal,Toys & Games,91.59,173.28
+P00147,Pro Card Game Deck,Toys & Games,94.03,213.25
+P00148,XL Building Blocks,Toys & Games,24.58,49.51
+P00149,Pro Puzzle 1000pc,Toys & Games,89.27,134.57
+P00150,XL Board Game,Toys & Games,36.38,59.58
+P00151,Classic Puzzle 1000pc,Toys & Games,102.14,143.51
+P00152,V2 RC Car,Toys & Games,112.75,161.9
+P00153,Classic Building Blocks,Toys & Games,9.9,22.17
+P00154,V2 Card Game Deck,Toys & Games,38.93,82.18
+P00155,Mini Card Game Deck,Toys & Games,12.45,25.36
+P00156,Pro Card Game Deck,Toys & Games,115.01,214.9
+P00157,Pro Card Game Deck,Toys & Games,52.25,98.4
+P00158,Mini Board Game,Toys & Games,29.66,47.22
+P00159,Mini Building Blocks,Toys & Games,45.85,73.2
+P00160,Classic Card Game Deck,Toys & Games,59.08,112.56
+P00161,Standard Plush Animal,Toys & Games,17.31,29.62
+P00162,V2 Puzzle 1000pc,Toys & Games,75.19,147.3
+P00163,V2 Notebook 3-Pack,Office Supplies,106.74,186.07
+P00164,XL Notebook 3-Pack,Office Supplies,33.76,69.26
+P00165,Classic Notebook 3-Pack,Office Supplies,99.36,172.63
+P00166,XL Pen Set,Office Supplies,60.47,100.79
+P00167,Pro Whiteboard,Office Supplies,41.16,60.67
+P00168,Pro Notebook 3-Pack,Office Supplies,116.71,244.62
+P00169,Standard Pen Set,Office Supplies,76.72,121.96
+P00170,Pro Whiteboard,Office Supplies,104.33,185.89
+P00171,Pro Notebook 3-Pack,Office Supplies,66.38,134.92
+P00172,XL Whiteboard,Office Supplies,79.0,177.42
+P00173,V2 Whiteboard,Office Supplies,21.84,39.6
+P00174,Standard Ergonomic Mouse,Office Supplies,14.15,20.5
+P00175,Classic Ergonomic Mouse,Office Supplies,12.17,26.04
+P00176,XL Ergonomic Mouse,Office Supplies,49.01,96.41
+P00177,Mini Standing Desk Mat,Office Supplies,5.96,11.96
+P00178,Standard Pen Set,Office Supplies,78.41,153.41
+P00179,Classic Whiteboard,Office Supplies,9.28,20.08
+P00180,Classic Ergonomic Mouse,Office Supplies,16.31,34.38
+P00181,Classic Ergonomic Mouse,Office Supplies,14.03,29.31
+P00182,XL Standing Desk Mat,Office Supplies,49.83,99.39
+P00183,Pro Standing Desk Mat,Office Supplies,65.88,100.32
+P00184,Classic Standing Desk Mat,Office Supplies,38.22,75.32
+P00185,V2 Ergonomic Mouse,Office Supplies,106.89,242.52
+P00186,V2 Whiteboard,Office Supplies,47.28,106.59
+P00187,Classic Pen Set,Office Supplies,20.4,29.33
+P00188,Classic Pen Set,Office Supplies,49.71,94.09
+P00189,Mini Notebook 3-Pack,Office Supplies,28.37,58.65
+P00190,Mini Granola Bars,Grocery,28.56,63.26
+P00191,Pro Protein Powder,Grocery,22.67,36.24
+P00192,Pro Olive Oil,Grocery,17.3,34.67
+P00193,Standard Protein Powder,Grocery,102.76,230.09
+P00194,XL Protein Powder,Grocery,78.78,115.48
+P00195,Standard Granola Bars,Grocery,33.08,52.19
+P00196,XL Protein Powder,Grocery,114.38,196.9
+P00197,V2 Granola Bars,Grocery,31.21,51.7
+P00198,Pro Organic Coffee Beans,Grocery,40.86,73.78
+P00199,V2 Protein Powder,Grocery,39.46,75.99
+P00200,Classic Protein Powder,Grocery,46.28,77.97
+P00201,Pro Green Tea Box,Grocery,4.56,7.39
+P00202,V2 Trail Mix,Grocery,89.82,161.0
+P00203,Pro Olive Oil,Grocery,82.83,140.68
+P00204,XL Green Tea Box,Grocery,55.66,116.74
+P00205,Classic Green Tea Box,Grocery,16.62,32.92
+P00206,Mini Organic Coffee Beans,Grocery,103.61,158.11
+P00207,Pro Protein Powder,Grocery,34.54,75.91
+P00208,V2 Organic Coffee Beans,Grocery,12.75,18.06
+P00209,V2 Protein Powder,Grocery,7.62,14.66
+P00210,Classic Green Tea Box,Grocery,28.68,41.1
+P00211,Classic Olive Oil,Grocery,107.7,203.09
+P00212,Pro Granola Bars,Grocery,46.43,74.33
+P00213,V2 Protein Powder,Grocery,103.43,157.26
+P00214,Classic Protein Powder,Grocery,14.5,25.05
+P00215,V2 Organic Coffee Beans,Grocery,31.71,71.91
+P00216,V2 Protein Powder,Grocery,23.24,43.29

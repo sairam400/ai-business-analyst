@@ -1,0 +1,13 @@
+.git
+.env
+__pycache__
+*.pyc
+.venv
+venv
+node_modules
+frontend/dist
+runs
+sandbox
+data/*.db
+data/uploads
+tests
