@@ -1,0 +1,81 @@
+.report-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.stat-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.stat-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  background: var(--surface-raised);
+  border: 1px solid var(--gridline);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-variant-numeric: proportional-nums;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+}
+
+.meter {
+  display: flex;
+  gap: 2px;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--gridline);
+}
+
+.meter-fill {
+  height: 100%;
+}
+
+.meter-passed {
+  background: var(--status-good);
+}
+
+.meter-removed {
+  background: var(--status-critical);
+}
+
+.note {
+  font-size: 0.85rem;
+  color: var(--status-serious);
+  margin: 0;
+}
+
+.report-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.action-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+}
+
+.action-link-disabled {
+  color: var(--ink-muted);
+  border-color: var(--gridline);
+  pointer-events: none;
+}

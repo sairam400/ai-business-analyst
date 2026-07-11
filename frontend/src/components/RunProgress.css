@@ -1,0 +1,48 @@
+.run-progress {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--ink-muted);
+}
+
+.step-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--axis);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.step-complete .step-marker {
+  background: var(--status-good);
+  border-color: var(--status-good);
+  color: white;
+}
+
+.step-active .step-marker {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.step-active .step-label {
+  color: var(--ink-primary);
+  font-weight: 600;
+}
+
+.step-complete .step-label {
+  color: var(--ink-secondary);
+}

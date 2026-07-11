@@ -43,3 +43,12 @@
   `GET .../charts/{chart_id}.png` endpoint) is plumbed but untested against
   a real chart, since the mock scenario never calls `make_chart` -- exercise
   this once a live provider run actually produces one.
+- **`frontend/` has no production serving story yet.** `npm run dev` proxies
+  `/runs` and `/health` to `http://localhost:8000` (see `vite.config.ts`), and
+  that's the only integration path exercised so far -- verified with a real
+  `uvicorn` process and Playwright (upload the sample CSVs, poll to done,
+  confirm no console errors), not just mocked. `npm run build` produces
+  `frontend/dist`, but neither the `Dockerfile` nor `docker-compose.yml`
+  build or serve it (both are backend-only); in production the built assets
+  would need a static host or a reverse proxy in front of both services,
+  since the app assumes `/runs` etc. are same-origin.
