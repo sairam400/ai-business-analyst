@@ -4,6 +4,15 @@
   verified inside the Docker image (Linux). Running `src/report` natively on
   Windows without WSL will fail to import weasyprint unless GTK3 runtime is
   installed separately.
+- **`src/report/render.py`'s PDF path (`render_pdf`) is untested against real WeasyPrint on this
+  machine.** Docker Desktop wasn't running when it was built, so `render_pdf`'s control flow is
+  covered by unit tests against a faked `weasyprint` module (`tests/test_render.py`), and the
+  graceful-failure path (`RenderError` when native libs are missing) is confirmed for real on
+  native Windows -- but an actual PDF has not been produced and eyeballed yet. `render_html`
+  (the Jinja2 templating, footnote linking, and XSS-escaping of LLM-authored text) has been
+  exercised end to end against real data. Before treating this as done: `docker build -t aiba .`
+  and run the CLI inside the container, or install a GTK3 runtime natively, and check the
+  rendered `report.pdf` looks right.
 - **`run_python` is process-isolated, not sandboxed.** It runs in a subprocess
   with a scratch directory, a stripped environment, and a monkey-patched
   socket module to block outbound network calls, but it is not a real

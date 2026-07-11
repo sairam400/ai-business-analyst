@@ -14,6 +14,7 @@ from src.pipeline.verifier import run_verifier
 from src.pipeline.writer import run_writer
 from src.providers import get_provider
 from src.providers.mock_provider import MockProvider
+from src.report.render import RenderError, render_html, render_pdf
 from src.run_context import create_run
 from src.tools import build_tools
 
@@ -106,6 +107,15 @@ def main():
     print(f"\n=== verified report ===\n{verified.executive_summary}\n")
     for section in verified.sections:
         print(f"-- {section.heading} --\n{section.body}\n")
+
+    html_path = ctx.run_dir / "report.html"
+    html_path.write_text(render_html(verified, ctx), encoding="utf-8")
+    print(f"wrote {html_path}")
+    try:
+        pdf_path = render_pdf(verified, ctx)
+        print(f"wrote {pdf_path}")
+    except RenderError as exc:
+        print(f"skipped PDF render: {exc}")
 
 
 if __name__ == "__main__":

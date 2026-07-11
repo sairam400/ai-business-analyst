@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Business Analytics Report</title>
+<style>
+  @page {
+    size: Letter;
+    margin: 2.2cm 2cm;
+    @bottom-center {
+      content: "Run {{ run_id }} -- page " counter(page) " of " counter(pages);
+      font-size: 8pt;
+      color: {{ palette.ink_muted }};
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
+    color: {{ palette.ink_primary }};
+    background: {{ palette.surface }};
+    font-size: 10.5pt;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3 { color: {{ palette.ink_primary }}; font-weight: 700; }
+
+  h1 {
+    font-size: 20pt;
+    margin: 0 0 0.2em 0;
+  }
+
+  .subtitle {
+    color: {{ palette.ink_secondary }};
+    font-size: 9.5pt;
+    margin: 0 0 1.5em 0;
+  }
+
+  .exec-summary {
+    border-left: 3px solid {{ palette.accent }};
+    padding: 0.6em 1em;
+    margin-bottom: 1.6em;
+    background: white;
+  }
+
+  section.body-section { margin-bottom: 1.4em; }
+
+  section.body-section h2 {
+    font-size: 13pt;
+    border-bottom: 1px solid {{ palette.gridline }};
+    padding-bottom: 0.25em;
+    margin-bottom: 0.5em;
+  }
+
+  .charts {
+    display: block;
+    margin: 1.6em 0;
+  }
+
+  .chart {
+    margin-bottom: 1em;
+    page-break-inside: avoid;
+  }
+
+  .chart img {
+    max-width: 100%;
+    border: 1px solid {{ palette.gridline }};
+  }
+
+  .chart .caption {
+    font-size: 8.5pt;
+    color: {{ palette.ink_muted }};
+    margin-top: 0.3em;
+  }
+
+  sup a {
+    color: {{ palette.accent }};
+    text-decoration: none;
+    font-size: 8pt;
+  }
+
+  .sources {
+    margin-top: 2em;
+    padding-top: 1em;
+    border-top: 1px solid {{ palette.gridline }};
+    font-size: 9pt;
+    color: {{ palette.ink_secondary }};
+    page-break-inside: avoid;
+  }
+
+  .sources h2 {
+    font-size: 11pt;
+    margin-bottom: 0.6em;
+  }
+
+  .sources table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .sources th, .sources td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.35em 0.5em;
+    border-bottom: 1px solid {{ palette.gridline }};
+  }
+
+  .sources th {
+    color: {{ palette.ink_muted }};
+    font-weight: 600;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .sources code {
+    font-family: "DejaVu Sans Mono", monospace;
+    font-size: 8pt;
+    color: {{ palette.ink_secondary }};
+  }
+
+  .verification-note {
+    margin-top: 1.2em;
+    font-size: 8pt;
+    color: {{ palette.ink_muted }};
+  }
+</style>
+</head>
+<body>
+
+  <h1>Business Analytics Report</h1>
+  <p class="subtitle">Run {{ run_id }} &mdash; every cited figure below was independently recomputed against the source data before this report was rendered.</p>
+
+  <div class="exec-summary">
+    <p>{{ executive_summary }}</p>
+  </div>
+
+  {% for section in sections %}
+  <section class="body-section">
+    <h2>{{ section.heading }}</h2>
+    <p>{{ section.body }}</p>
+  </section>
+  {% endfor %}
+
+  {% if charts %}
+  <div class="charts">
+    {% for chart in charts %}
+    <div class="chart">
+      <img src="{{ chart.uri }}" alt="{{ chart.title }}">
+      <p class="caption">{{ chart.title }} [{{ chart.finding_id }}]</p>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if sources %}
+  <div class="sources">
+    <h2>Sources</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Ref</th>
+          <th>Question</th>
+          <th>Query</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for source in sources %}
+        <tr id="fn-{{ source.id }}">
+          <td>[{{ source.id }}]</td>
+          <td>{{ source.question }}</td>
+          <td><code>{{ source.query }}</code></td>
+          <td>{{ source.value }}{% if source.unit %} {{ source.unit }}{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="verification-note">
+      Every reference above was re-executed against the live dataset and matched the cited value at render time.
+      {% if removed_claim_count %}
+      {{ removed_claim_count }} additional claim{{ "s" if removed_claim_count != 1 else "" }} could not be verified and {{ "were" if removed_claim_count != 1 else "was" }} removed before this report was generated.
+      {% endif %}
+    </p>
+  </div>
+  {% endif %}
+
+</body>
+</html>
