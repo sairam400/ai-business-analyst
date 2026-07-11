@@ -10,6 +10,8 @@ from src.config import SETTINGS
 from src.csv_loader import load_directory
 from src.pipeline.analyst import run_analyst
 from src.pipeline.profiler import profile_dataset
+from src.pipeline.verifier import run_verifier
+from src.pipeline.writer import run_writer
 from src.providers import get_provider
 from src.providers.mock_provider import MockProvider
 from src.run_context import create_run
@@ -20,8 +22,7 @@ def _demo_mock_provider() -> MockProvider:
     profiler_completion = json.dumps({
         "suggested_analyses": [
             "total revenue and completed order count",
-            "top 5 products by revenue",
-            "monthly order volume trend",
+            "top product by revenue",
         ],
         "data_quality_notes": [],
     })
@@ -31,27 +32,34 @@ def _demo_mock_provider() -> MockProvider:
         {"type": "final", "text": json.dumps({
             "question": "total revenue and completed order count", "method": "sql",
             "query": "SELECT ROUND(SUM(quantity*unit_price),2), COUNT(*) FROM orders WHERE status='completed'",
-            "value": "see query result", "unit": "USD"})},
+            "value": 1121746.54, "unit": "USD"})},
 
         {"type": "tool_call", "id": "c2", "name": "run_sql", "args": {
             "query": "SELECT p.name, ROUND(SUM(o.quantity*o.unit_price),2) AS revenue FROM orders o "
                      "JOIN products p ON o.product_id = p.product_id WHERE o.status='completed' "
-                     "GROUP BY p.name ORDER BY revenue DESC LIMIT 5"}},
+                     "GROUP BY p.name ORDER BY revenue DESC LIMIT 1"}},
         {"type": "final", "text": json.dumps({
-            "question": "top 5 products by revenue", "method": "sql",
+            "question": "top product by revenue", "method": "sql",
             "query": "SELECT p.name, ROUND(SUM(o.quantity*o.unit_price),2) AS revenue FROM orders o "
                      "JOIN products p ON o.product_id = p.product_id WHERE o.status='completed' "
-                     "GROUP BY p.name ORDER BY revenue DESC LIMIT 5",
-            "value": "see query result"})},
-
-        {"type": "tool_call", "id": "c3", "name": "run_sql", "args": {
-            "query": "SELECT strftime('%Y-%m', order_date) AS month, COUNT(*) FROM orders GROUP BY month ORDER BY month"}},
-        {"type": "final", "text": json.dumps({
-            "question": "monthly order volume trend", "method": "sql",
-            "query": "SELECT strftime('%Y-%m', order_date) AS month, COUNT(*) FROM orders GROUP BY month ORDER BY month",
-            "value": "see query result"})},
+                     "GROUP BY p.name ORDER BY revenue DESC LIMIT 1",
+            "value": 29324.10, "unit": "USD"})},
     ]
-    return MockProvider(plan=plan, completions=[profiler_completion])
+    writer_completion = json.dumps({
+        "executive_summary": "The business generated $1,121,746.54 in revenue across completed orders this period [F1].",
+        "sections": [{
+            "heading": "Revenue",
+            "body": "Total completed-order revenue was $1,121,746.54 [F1]. The top-performing product "
+                    "contributed $29,324.10 in revenue [F2].",
+        }],
+    })
+    verifier_completion = json.dumps({
+        "judgments": [
+            {"finding_id": "F1", "faithful": True},
+            {"finding_id": "F2", "faithful": True},
+        ],
+    })
+    return MockProvider(plan=plan, completions=[profiler_completion, writer_completion, verifier_completion])
 
 
 def main():
@@ -81,6 +89,23 @@ def main():
     out_path = ctx.run_dir / "analyst_artifact.json"
     out_path.write_text(artifact.model_dump_json(indent=2), encoding="utf-8")
     print(f"\nwrote {out_path}")
+
+    draft = run_writer(artifact, provider)
+    print(f"\n=== draft ===\n{draft.executive_summary}\n")
+    for section in draft.sections:
+        print(f"-- {section.heading} --\n{section.body}\n")
+
+    verified = run_verifier(draft, artifact, tools, provider)
+    print("=== verifier ===")
+    for v in verified.verdicts:
+        status = "PASS" if v.passed else "FAIL"
+        print(f"  [{v.finding_id}] {status}" + (f" - {v.reason}" if v.reason else ""))
+    for claim in verified.removed_claims:
+        print(f"  removed [{claim.finding_id}]: {claim.reason}")
+
+    print(f"\n=== verified report ===\n{verified.executive_summary}\n")
+    for section in verified.sections:
+        print(f"-- {section.heading} --\n{section.body}\n")
 
 
 if __name__ == "__main__":
