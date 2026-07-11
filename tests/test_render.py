@@ -63,6 +63,14 @@ class TestBuildContext(unittest.TestCase):
         self.assertEqual(len(ctx_data["charts"]), 1)
         self.assertTrue(ctx_data["charts"][0]["uri"].startswith("file:"))
 
+    def test_chart_url_base_produces_http_path_instead_of_file_uri(self):
+        (self.ctx.charts_dir / "chart_abc.png").write_bytes(b"\x89PNG")
+        report = self._report(findings=[
+            Finding(id="F1", question="q", method="sql", query="SELECT 1", value=100.0, unit="USD", chart_id="chart_abc"),
+        ])
+        ctx_data = build_context(report, self.ctx, chart_url_base="/runs/r1/charts")
+        self.assertEqual(ctx_data["charts"][0]["uri"], "/runs/r1/charts/chart_abc.png")
+
     def test_chart_omitted_when_png_missing(self):
         report = self._report(findings=[
             Finding(id="F1", question="q", method="sql", query="SELECT 1", value=100.0, unit="USD", chart_id="does_not_exist"),

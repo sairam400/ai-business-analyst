@@ -32,3 +32,14 @@
   `ANTHROPIC_API_KEY` in `.env` and run `python -m src.eval.run_eval
   --provider anthropic --runs 5` to get real numbers before treating this
   as production-verified end to end.
+- **`src/api/` has no authentication, rate limiting, or run expiry.** Any
+  caller can trigger LLM calls (real spend, with `provider=anthropic` or
+  `openai`) and every run's status.json/artifacts/uploaded CSVs persist under
+  `runs/` and `data/uploads/` indefinitely -- fine for a local demo behind a
+  trusted network, not for a public deployment. `CORS_ORIGINS` defaults to
+  `*` for the same reason (no auth/cookies in play, but tighten it before
+  exposing this beyond local dev). Chart embedding in the API's
+  `GET .../report.html` (via `render_html`'s `chart_url_base` and the new
+  `GET .../charts/{chart_id}.png` endpoint) is plumbed but untested against
+  a real chart, since the mock scenario never calls `make_chart` -- exercise
+  this once a live provider run actually produces one.

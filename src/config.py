@@ -55,6 +55,7 @@ class Settings:
     verify_tolerance = float(_get_env("VERIFY_TOLERANCE", "0.01"))
 
     app_port = int(_get_env("APP_PORT", "8000"))
+    cors_origins = [o.strip() for o in _get_env("CORS_ORIGINS", "*").split(",")]
 
     max_upload_rows_per_table = int(_get_env("MAX_UPLOAD_ROWS_PER_TABLE", "200000"))
 

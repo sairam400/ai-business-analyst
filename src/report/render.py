@@ -60,7 +60,7 @@ def _cited_ids(report: VerifiedReport) -> set[str]:
     return ids
 
 
-def build_context(report: VerifiedReport, ctx: RunContext) -> dict:
+def build_context(report: VerifiedReport, ctx: RunContext, chart_url_base: str = None) -> dict:
     cited = _cited_ids(report)
     findings_by_id = {f.id: f for f in report.findings}
     verdicts_by_id = {v.finding_id: v for v in report.verdicts}
@@ -85,8 +85,14 @@ def build_context(report: VerifiedReport, ctx: RunContext) -> dict:
         if not finding.chart_id or finding.id not in cited:
             continue
         chart_path = ctx.charts_dir / f"{finding.chart_id}.png"
-        if chart_path.exists():
-            charts.append({"finding_id": finding.id, "title": finding.question, "uri": chart_path.resolve().as_uri()})
+        if not chart_path.exists():
+            continue
+        # WeasyPrint (render_pdf) reads chart images straight off disk, so it always
+        # gets a file:// URI regardless of caller. A browser fetching report.html over
+        # HTTP (the API's GET .../report.html) can't resolve a server-local file:// path,
+        # so that caller passes chart_url_base to get an HTTP path it can actually fetch.
+        uri = f"{chart_url_base}/{finding.chart_id}.png" if chart_url_base else chart_path.resolve().as_uri()
+        charts.append({"finding_id": finding.id, "title": finding.question, "uri": uri})
 
     return {
         "run_id": ctx.run_id,
@@ -99,9 +105,9 @@ def build_context(report: VerifiedReport, ctx: RunContext) -> dict:
     }
 
 
-def render_html(report: VerifiedReport, ctx: RunContext) -> str:
+def render_html(report: VerifiedReport, ctx: RunContext, chart_url_base: str = None) -> str:
     template = _env.get_template("report.html.jinja")
-    return template.render(**build_context(report, ctx))
+    return template.render(**build_context(report, ctx, chart_url_base))
 
 
 def render_pdf(report: VerifiedReport, ctx: RunContext, out_path: Path = None) -> Path:
