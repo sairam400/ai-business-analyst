@@ -20,10 +20,15 @@
   demo tool operating on data the user already trusts; would need real
   sandboxing (e.g. gVisor, a per-call container) before running untrusted
   code server-side for multiple tenants.
-- **No live Anthropic API key was available while building phases 3-8.**
-  The profiler, analyst, writer, and verifier are built and tested against
-  `MockProvider` (scripted, deterministic, no network) so every code path,
-  retry loop, and the render gate are exercised, but no real Claude call has
-  happened yet. Set `ANTHROPIC_API_KEY` in `.env` and re-run the eval
-  harness (`python -m src.eval.run_eval --provider anthropic`) and the CLI
-  demos before treating this as production-verified end to end.
+- **No live Anthropic API key was available while building the pipeline or
+  the eval harness (`src/eval/`).** The profiler, analyst, writer, and
+  verifier are built and tested against `MockProvider` (scripted,
+  deterministic, no network) so every code path, retry loop, and the render
+  gate are exercised, but no real Claude call has happened yet, and the
+  harness's groundedness/coverage scores have only ever been measured
+  against the mock scenario (a smoke test of the harness, not a real
+  measurement -- coverage against mock is low by construction, since the
+  scripted scenario only asks 2 of the 6 reference questions). Set
+  `ANTHROPIC_API_KEY` in `.env` and run `python -m src.eval.run_eval
+  --provider anthropic --runs 5` to get real numbers before treating this
+  as production-verified end to end.

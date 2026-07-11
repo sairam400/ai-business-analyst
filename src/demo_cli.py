@@ -1,7 +1,10 @@
-"""Runs profiler + analyst against the sample dataset and prints the
+"""Runs the full pipeline against the sample dataset and prints the
 resulting artifacts. Defaults to a scripted MockProvider (no API key
 needed) so the pipeline shape is checkable without network access; pass
 --provider anthropic once ANTHROPIC_API_KEY is set to see a real run.
+
+demo_mock_provider() is also reused by src/eval/run_eval.py as a
+deterministic smoke test of the eval harness itself.
 """
 import argparse
 import json
@@ -19,7 +22,7 @@ from src.run_context import create_run
 from src.tools import build_tools
 
 
-def _demo_mock_provider() -> MockProvider:
+def demo_mock_provider() -> MockProvider:
     profiler_completion = json.dumps({
         "suggested_analyses": [
             "total revenue and completed order count",
@@ -71,7 +74,7 @@ def main():
     load_directory(SETTINGS.sample_data_dir, SETTINGS.db_path)
     ctx = create_run()
     tools = build_tools(ctx)
-    provider = _demo_mock_provider() if args.provider == "mock" else get_provider(args.provider)
+    provider = demo_mock_provider() if args.provider == "mock" else get_provider(args.provider)
 
     print(f"=== run {ctx.run_id} ===")
     profile = profile_dataset(tools, provider)
