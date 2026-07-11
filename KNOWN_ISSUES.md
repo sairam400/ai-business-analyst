@@ -11,3 +11,10 @@
   demo tool operating on data the user already trusts; would need real
   sandboxing (e.g. gVisor, a per-call container) before running untrusted
   code server-side for multiple tenants.
+- **No live Anthropic API key was available while building phases 3-8.**
+  The profiler, analyst, writer, and verifier are built and tested against
+  `MockProvider` (scripted, deterministic, no network) so every code path,
+  retry loop, and the render gate are exercised, but no real Claude call has
+  happened yet. Set `ANTHROPIC_API_KEY` in `.env` and re-run the eval
+  harness (`python -m src.eval.run_eval --provider anthropic`) and the CLI
+  demos before treating this as production-verified end to end.
