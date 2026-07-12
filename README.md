@@ -12,6 +12,11 @@ against the database and checks that the sentence citing it actually
 describes what it claims. Anything that fails either check gets stripped
 from the report rather than shipped.
 
+**[Sample report →](docs/sample_report.pdf)** — a real run against
+`--provider anthropic`, not the mock. The verifier caught and stripped two
+claims from this exact run before it rendered; the reasoning is in
+[`docs/verifier_catch_example.md`](docs/verifier_catch_example.md).
+
 ## How it works
 
 ```
