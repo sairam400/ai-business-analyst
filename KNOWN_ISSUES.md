@@ -1,18 +1,36 @@
 # Known issues
 
-- **WeasyPrint requires native Pango/Cairo libraries.** PDF rendering is only
-  verified inside the Docker image (Linux). Running `src/report` natively on
-  Windows without WSL will fail to import weasyprint unless GTK3 runtime is
-  installed separately.
-- **`src/report/render.py`'s PDF path (`render_pdf`) is untested against real WeasyPrint on this
-  machine.** Docker Desktop wasn't running when it was built, so `render_pdf`'s control flow is
-  covered by unit tests against a faked `weasyprint` module (`tests/test_render.py`), and the
-  graceful-failure path (`RenderError` when native libs are missing) is confirmed for real on
-  native Windows -- but an actual PDF has not been produced and eyeballed yet. `render_html`
-  (the Jinja2 templating, footnote linking, and XSS-escaping of LLM-authored text) has been
-  exercised end to end against real data. Before treating this as done: `docker build -t aiba .`
-  and run the CLI inside the container, or install a GTK3 runtime natively, and check the
-  rendered `report.pdf` looks right.
+- **WeasyPrint requires native Pango/Cairo libraries.** Running `src/report`
+  natively on Windows without WSL will fail to import weasyprint unless a
+  GTK3 runtime is installed separately. Confirmed working inside the
+  project's Docker image (see below) — that's the supported path, not a
+  workaround.
+- **PDF rendering is now confirmed working for real**, not just wired up.
+  `docker compose run --rm backend python -m src.demo_cli --provider
+  anthropic` produced `docs/sample_report.pdf` — 5 pages, charts, footnote
+  links, sources table, all rendering correctly. Previously this repo's
+  `render_pdf` had only been tested against a faked `weasyprint` module;
+  that gap is closed.
+- **The writer's citations pass the verifier about 57% of the time on real
+  runs**, not the ~100% the mock scenario implied. 5 eval runs against
+  `claude-sonnet-4-5`, 38 citations total, 22 passed. Almost every failure
+  is the semantic check catching correct numbers wrapped in framing the
+  finding doesn't support — a single aggregate value described as
+  "monthly," a total count described as "per month." See
+  `docs/verifier_catch_example.md` for a worked example pulled straight
+  from a run, no tampering. This means the verifier is doing its job; it
+  also means the writer's prompt needs tightening against that specific
+  failure pattern before this number goes up. That's the next real
+  iteration, not something fixed in this pass.
+- **The eval harness's coverage metric doesn't produce a meaningful number
+  yet.** It scored 0/6 on every one of the 5 real runs. The 6 reference
+  facts (`src/eval/reference.py`) are exact, hand-picked aggregate queries
+  (overall return rate, top *category* by revenue); a real analyst tends to
+  pick differently-scoped questions that are equally valid but don't match
+  those exact facts (per-*product* revenue, per-category return rate
+  breakdowns instead of one overall rate). Groundedness is the trustworthy
+  metric right now — coverage needs a redesign (looser matching, or more
+  representative reference facts) before its number means anything.
 - **`run_python` is process-isolated, not sandboxed.** It runs in a subprocess
   with a scratch directory, a stripped environment, and a monkey-patched
   socket module to block outbound network calls, but it is not a real
@@ -20,18 +38,6 @@
   demo tool operating on data the user already trusts; would need real
   sandboxing (e.g. gVisor, a per-call container) before running untrusted
   code server-side for multiple tenants.
-- **No live Anthropic API key was available while building the pipeline or
-  the eval harness (`src/eval/`).** The profiler, analyst, writer, and
-  verifier are built and tested against `MockProvider` (scripted,
-  deterministic, no network) so every code path, retry loop, and the render
-  gate are exercised, but no real Claude call has happened yet, and the
-  harness's groundedness/coverage scores have only ever been measured
-  against the mock scenario (a smoke test of the harness, not a real
-  measurement -- coverage against mock is low by construction, since the
-  scripted scenario only asks 2 of the 6 reference questions). Set
-  `ANTHROPIC_API_KEY` in `.env` and run `python -m src.eval.run_eval
-  --provider anthropic --runs 5` to get real numbers before treating this
-  as production-verified end to end.
 - **`src/api/` has no authentication, rate limiting, or run expiry.** Any
   caller can trigger LLM calls (real spend, with `provider=anthropic` or
   `openai`) and every run's status.json/artifacts/uploaded CSVs persist under
@@ -39,10 +45,10 @@
   trusted network, not for a public deployment. `CORS_ORIGINS` defaults to
   `*` for the same reason (no auth/cookies in play, but tighten it before
   exposing this beyond local dev). Chart embedding in the API's
-  `GET .../report.html` (via `render_html`'s `chart_url_base` and the new
-  `GET .../charts/{chart_id}.png` endpoint) is plumbed but untested against
-  a real chart, since the mock scenario never calls `make_chart` -- exercise
-  this once a live provider run actually produces one.
+  `GET .../report.html` (via `render_html`'s `chart_url_base` and the
+  `GET .../charts/{chart_id}.png` endpoint) is plumbed but still untested
+  against a real chart through that specific code path -- the live runs
+  that produced charts so far went through `demo_cli`, not the API.
 - **`frontend/` has no production serving story yet.** `npm run dev` proxies
   `/runs` and `/health` to `http://localhost:8000` (see `vite.config.ts`), and
   that's the only integration path exercised so far -- verified with a real

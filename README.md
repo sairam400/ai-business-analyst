@@ -131,10 +131,23 @@ verifier's redaction logic, and the API layer end to end.
 
 ## Where this is honest about its gaps
 
-Full list in `KNOWN_ISSUES.md`, but the short version: everything above has
-been tested against a scripted `MockProvider`, not a live Claude call, so
-"the pipeline works" is verified — "the LLM's judgment is good" isn't, yet.
-PDF rendering needs native Pango/Cairo libs that aren't available on this
-dev machine outside Docker. The API has no auth, which is fine for local
-use and not fine for putting it on the public internet as-is. None of these
-are hidden — they're the actual next steps.
+Full list in `KNOWN_ISSUES.md`. Short version, now that it's been run for
+real (6 live runs against `claude-sonnet-4-5`: 1 demo + 5 eval, 0 crashes,
+PDF confirmed rendering in Docker):
+
+- **The writer's citations are right more often than they're well-labeled.**
+  56.7% mean pass rate on real runs — the verifier's semantic check is doing
+  real work, catching the writer add unsupported framing around correct
+  numbers. The fix is tightening the writer's prompt against that pattern
+  and re-measuring, not something this pass attempted.
+- **The eval harness's coverage metric doesn't work yet.** 0/6 on every real
+  run, because the 6 reference facts assume specific question framing
+  (overall return rate, top *category*) that a real analyst doesn't
+  reliably choose (it asked per-*product* and per-category-breakdown
+  questions instead — also correct, just not what the fixed reference set
+  expected). Groundedness is the metric actually trustworthy right now;
+  coverage needs redesigning before its numbers mean anything.
+- **The API still has no auth, rate limiting, or run expiry.** Unchanged —
+  fine for local use, not for the public internet.
+
+None of these are hidden — they're the actual next steps.
