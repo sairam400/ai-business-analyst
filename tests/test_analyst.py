@@ -1,3 +1,4 @@
+import json
 import shutil
 import tempfile
 import unittest
@@ -94,6 +95,17 @@ class TestAnalyst(unittest.TestCase):
         artifact = run_analyst(profile, provider, self.tools)
         self.assertEqual(len(artifact.findings), 1)
         self.assertEqual(artifact.findings[0].id, "F1")
+        self.assertEqual(len(artifact.failed_tasks), 1)
+
+    def test_final_value_that_is_a_list_fails_task_not_whole_run(self):
+        profile = DatasetProfile(tables=[], suggested_analyses=["top 10 products"])
+        plan = [{"type": "final", "text": json.dumps({
+            "question": "top 10 products", "method": "sql", "query": "SELECT * FROM x",
+            "value": [{"product_id": "P1", "revenue": 100}, {"product_id": "P2", "revenue": 90}],
+        })}]
+        provider = MockProvider(plan=plan)
+        artifact = run_analyst(profile, provider, self.tools)
+        self.assertEqual(artifact.findings, [])
         self.assertEqual(len(artifact.failed_tasks), 1)
 
 

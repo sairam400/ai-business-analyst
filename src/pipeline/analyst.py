@@ -7,6 +7,8 @@ crash the whole report.
 """
 import json
 
+from pydantic import ValidationError
+
 from src.artifacts import AnalystArtifact, DatasetProfile, Finding
 from src.config import SETTINGS
 from src.providers.base import Provider
@@ -23,6 +25,10 @@ SYSTEM_PROMPT = (
     '"query": "<the exact SQL or python code that produced value>", '
     '"value": <the number or short string answer>, "unit": "<e.g. USD, %, orders, or empty>", '
     '"chart_id": "<chart_id if you made one relevant to this finding, else null>"}\n\n'
+    "value MUST be a single scalar -- one number or one short string, never a list or "
+    "object. If the task's natural answer is a list (e.g. \"top 10 products\"), report "
+    "the single headline entry only (e.g. the #1 product and its value), not the whole "
+    "list -- pick the one number a citation can point at.\n\n"
     "The query field must be the literal, re-runnable query or code that produces "
     "value -- it gets independently re-executed to verify your claim, so it must "
     "actually be the source of the number, not a paraphrase."
@@ -90,5 +96,7 @@ def run_analyst(profile: DatasetProfile, provider: Provider, tools: dict) -> Ana
             ))
         except AnalystError as exc:
             failed_tasks.append(str(exc))
+        except (ValidationError, KeyError) as exc:
+            failed_tasks.append(f"task '{task}': final answer didn't match the Finding schema: {exc}")
 
     return AnalystArtifact(profile=profile, findings=findings, failed_tasks=failed_tasks)
