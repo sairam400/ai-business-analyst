@@ -89,9 +89,35 @@ against the seeded sample data, how many did the analyst find). No golden
 Q&A set required — the analyst picks its own questions; this checks whether
 what it picks holds up.
 
-**Docker:** `docker compose up` builds and runs the backend (PDF rendering
-needs the native libs in the image, which is also the only place it's been
-tested for real — see below).
+Actual results, 5 runs against `claude-sonnet-4-5` in Docker:
+
+| run | findings | failed tasks | citations passed | pass rate |
+|---|---|---|---|---|
+| `110b14ec1456` | 8 | 0 | 3/8 | 37.5% |
+| `de67c197a806` | 8 | 0 | 5/8 | 62.5% |
+| `40ca4c150c11` | 8 | 0 | 7/8 | 87.5% |
+| `1efb2a9a1ee0` | 6 | 2 | 2/6 | 33.3% |
+| `b1dfe2b52190` | 8 | 0 | 5/8 | 62.5% |
+| **mean** | | | | **56.7%** |
+
+Zero crashes across the 5 runs (that wasn't true before the analyst fix
+above). Coverage came back 0/6 on every run, which is a real result but not
+the one it looks like — see the gaps section below.
+
+Mean pass rate of 56.7% is below the harness's own default gate (80%), so
+it exits non-zero, which is correct: **most of the writer's citations
+failed the verifier on real runs.** Looking at *why* (see
+`docs/verifier_catch_example.md` for a worked example) — it's almost always
+the semantic check, not the mechanical one. The number is right; the writer
+adds framing the finding doesn't support ("monthly" for a single aggregate,
+"per month" for a total count, "trend" for one data point). The verifier
+catching that at a ~43% rate is the system working as designed, not a bug
+— but it also means the writer's prompt needs to stop inviting that framing
+in the first place. That's the honest next iteration, not something this
+pass fixed.
+
+**Docker:** `docker compose up` builds and runs the backend. `docs/sample_report.pdf`
+was rendered this way — PDF output is confirmed working, not just wired up.
 
 ## Tests
 
